@@ -25,9 +25,10 @@ function [X, Y, Z, M] = geocent_fwd(lat, lon, h, ellipsoid)
   narginchk(2, 4)
   if nargin < 3, h = 0; end
   if nargin < 4, ellipsoid = defaultellipsoid; end
-  try
-    z = -zeros(size(lat + lon + h));
-  catch
+  
+  if isequal(size(lat), size(lon), size(h))
+    z = -zeros(size(lat));
+  else
     error('lat, lon, h have incompatible sizes')
   end
   if length(ellipsoid(:)) ~= 2

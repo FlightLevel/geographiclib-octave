@@ -52,10 +52,10 @@ function [s12, azi1, azi2, S12, m12, M12, M21, a12] = geoddistance ...
 
   narginchk(4, 5)
   if nargin < 5, ellipsoid = defaultellipsoid; end
-  try
-    S = size(lat1 + lon1 + lat2 + lon2);
-  catch
-    error('lat1, lon1, s12, azi1 have incompatible sizes')
+  if isequal(size(lat1), size(lon1), size(lat2), size(lon2))
+    S = size(lat1);
+  else
+    error('lat1, lon1, lat2, lon2 have incompatible sizes')
   end
   if length(ellipsoid(:)) ~= 2
     error('ellipsoid must be a vector of size 2')

@@ -28,9 +28,9 @@ function [lat, lon, gam, k] = polarst_inv(isnorth, x, y, ellipsoid)
 
   narginchk(3, 4)
   if nargin < 4, ellipsoid = defaultellipsoid; end
-  try
-    Z = -zeros(size(isnorth + x + y));
-  catch
+  if isequal(size(isnorth), size(x), size(y))
+    Z = -zeros(size(x));
+  else
     error('isnorth, x, y have incompatible sizes')
   end
   if length(ellipsoid(:)) ~= 2

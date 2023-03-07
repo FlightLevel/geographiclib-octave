@@ -27,9 +27,9 @@ function [x, y, z, M] = loccart_fwd(lat0, lon0, h0, lat, lon, h, ellipsoid)
   narginchk(5, 7)
   if nargin < 6, h = 0; end
   if nargin < 7, ellipsoid = defaultellipsoid; end
-  try
-    S = size(lat + lon + h);
-  catch
+  if isequal(size(lat), size(lon), size(h))
+    S = size(lat);
+  else
     error('lat, lon, h have incompatible sizes')
   end
   if ~(isscalar(lat0) && isscalar(lon0) && isscalar(h0))

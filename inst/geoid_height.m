@@ -127,9 +127,9 @@ function N = geoid_height_int(lat, lon, geoid, cubic)
            -18,   36,  -64,   0,   66,   51, 0,   0, -102,  31;...
             18,  -36,    2,   0,  -66,  -51, 0,   0,  102,  31];
   end
-  try
-    s = size(lat + lon);
-  catch
+  if isequal(size(lat), size(lon))
+    s = size(lat);
+  else
     error('lat, lon have incompatible sizes')
   end
   num = prod(s); Z = -zeros(num,1);

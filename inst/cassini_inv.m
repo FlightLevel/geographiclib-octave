@@ -27,9 +27,8 @@ function [lat, lon, azi, rk] = cassini_inv(lat0, lon0, x, y, ellipsoid)
 
   narginchk(4, 5)
   if nargin < 5, ellipsoid = defaultellipsoid; end
-  try
-    [~] = lat0 + lon0 + x + y;
-  catch
+  
+  if ~isequal(size(lat0), size(lon0), size(x), size(y))
     error('lat0, lon0, x, y have incompatible sizes')
   end
 

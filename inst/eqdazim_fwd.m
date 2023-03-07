@@ -39,9 +39,8 @@ function [x, y, azi, rk] = eqdazim_fwd(lat0, lon0, lat, lon, ellipsoid)
 
   narginchk(4, 5)
   if nargin < 5, ellipsoid = defaultellipsoid; end
-  try
-    [~] = lat0 + lon0 + lat + lon;
-  catch
+  
+  if ~isequal(size(lat0), size(lon0), size(lat), size(lon))
     error('lat0, lon0, lat, lon have incompatible sizes')
   end
 

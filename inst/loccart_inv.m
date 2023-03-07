@@ -25,9 +25,9 @@ function [lat, lon, h, M] = loccart_inv(lat0, lon0, h0, x, y, z, ellipsoid)
 
   narginchk(6, 7)
   if nargin < 7, ellipsoid = defaultellipsoid; end
-  try
-    S = size(x + y + z);
-  catch
+  if isequal(size(x), size(y), size(z))
+    S = size(x);
+  else
     error('x, y, z have incompatible sizes')
   end
   if ~(isscalar(lat0) && isscalar(lon0) && isscalar(h0))

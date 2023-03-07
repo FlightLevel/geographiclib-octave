@@ -36,9 +36,9 @@ function mgrs = mgrs_fwd(x, y, zone, isnorth, prec)
   if nargin < 5, prec = 5; end
   zone = floor(zone);
   prec = min(11, max(-2, floor(prec))); % this converts NaNs to -2.
-  try
-    s = size(x + y + zone + isnorth + prec);
-  catch
+  if isequal(size(x), size(y), size(zone), size(isnorth), size(prec))
+    s = size(x);
+  else
     error('x, y, zone, isnorth, prec have incompatible sizes')
   end
   num = prod(s);

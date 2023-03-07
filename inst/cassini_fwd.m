@@ -28,11 +28,13 @@ function [x, y, azi, rk] = cassini_fwd(lat0, lon0, lat, lon, ellipsoid)
 
   narginchk(4, 5)
   if nargin < 5, ellipsoid = defaultellipsoid; end
-  try
-    Z = -zeros(size(lat0 + lon0 + lat + lon));
-  catch
+  
+  if isequal(size(lat0), size(lon0), size(lat), size(lon))
+    Z = -zeros(size(lat0));
+  else
     error('lat0, lon0, lat, lon have incompatible sizes')
   end
+  
   if length(ellipsoid(:)) ~= 2
     error('ellipsoid must be a vector of size 2')
   end
@@ -68,7 +70,7 @@ function [x, y, azi, rk] = cassini_fwd(lat0, lon0, lat, lon, ellipsoid)
   salp0 = salp .* cbet;
   calp0 = hypot(calp, salp .* sbet);
   sbet1 = calp0;
-  c = signbit(lat + Z);
+  c = signbitx(lat + Z);
   sbet1(c) = -sbet1(c);
   cbet1 = abs(salp0);
   c = abs(dlon) <= 90;

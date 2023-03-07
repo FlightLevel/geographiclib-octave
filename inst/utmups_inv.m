@@ -39,9 +39,9 @@ function [lat, lon, gam, k] = utmups_inv(x, y, zone, isnorth)
 % Copyright (c) Charles Karney (2015-2022) <charles@karney.com>.
 
   narginchk(4, 4)
-  try
-    Z = -zeros(size(x + y + zone + isnorth));
-  catch
+  if isequal(size(x), size(y), size(zone), size(isnorth))
+    Z = -zeros(size(x));
+  else
     error('x, y, zone, isnorth have incompatible sizes')
   end
   x = x + Z; y = y + Z;

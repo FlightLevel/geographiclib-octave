@@ -47,9 +47,9 @@ function [x, y, zone, isnorth, gam, k] = utmups_fwd(lat, lon, setzone)
 
   narginchk(2, 3)
   if nargin < 3, setzone = -1; end
-  try
-    Z = -zeros(size(lat + lon + setzone));
-  catch
+  if isequal(size(lat), size(lon), size(setzone))
+    Z = -zeros(size(lat));
+  else
     error('lat, lon, setzone have incompatible sizes')
   end
   lat = lat + Z; lon = lon + Z;

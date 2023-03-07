@@ -35,14 +35,17 @@ function [s12, azi1, azi2, S12] = gedistance(lat1, lon1, lat2, lon2, ellipsoid)
 
   narginchk(4, 5)
   if nargin < 5, ellipsoid = defaultellipsoid; end
-  try
-    S = size(lat1 + lon1 + lat2 + lon2);
-  catch
+  
+  if isequal(size(lat1), size(lon1), size(lat2), size(lon2))
+    S = size(lat1);
+  else
     error('lat1, lon1, s12, azi1 have incompatible sizes')
   end
+  
   if length(ellipsoid(:)) ~= 2
     error('ellipsoid must be a vector of size 2')
   end
+  
   Z = -zeros(S);
   lat1 = lat1 + Z; lon1 = lon1 + Z;
   lat2 = lat2 + Z; lon2 = lon2 + Z;
