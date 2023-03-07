@@ -13,7 +13,7 @@ function ellipsoid = defaultellipsoid
   if isempty(ell)
     a = 6378137;
     f = 1/298.257223563;
-    ecc = flat2ecc(f);
+    ecc = geographiclib_ecc2flat(f);
     ell = [a, ecc];
   end
   narginchk(0, 0)

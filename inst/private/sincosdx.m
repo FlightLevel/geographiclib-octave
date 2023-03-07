@@ -6,7 +6,7 @@ function [sinx, cosx] = sincosdx(x)
 
   persistent octavep
   if isempty(octavep)
-    octavep = exist('OCTAVE_VERSION', 'builtin') ~= 0;
+    octavep =  0;
   end
   if ~octavep
     % MATLAB implements argument reduction and symmetries already
